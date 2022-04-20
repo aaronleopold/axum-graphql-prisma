@@ -21,7 +21,6 @@ impl Into<User> for user::Data {
     }
 }
 
-// 😡
 impl Into<User> for &user::Data {
     fn into(self) -> User {
         User {

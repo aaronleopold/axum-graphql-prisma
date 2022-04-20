@@ -1,6 +1,6 @@
 # Rust + Axum + Prisma
 
-A template for creating services in Rust using Axum and Prisma. This uses the super cool [Prisma Rust Client](https://github.com/Brendonovich/prisma-client-rust), which is not stable. I just wanted to try it out, hopefully when it is more stable I will actually put this template to good use.
+A template for creating services in Rust using Axum and Prisma. This uses the super cool [Prisma Rust Client](https://github.com/Brendonovich/prisma-client-rust).
 
 ## Getting Started
 
