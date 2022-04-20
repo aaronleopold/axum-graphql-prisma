@@ -1,6 +1,6 @@
-use async_graphql::SimpleObject;
+use async_graphql::{ComplexObject, Context, Result, SimpleObject};
 
-use crate::prisma::{post, user};
+use crate::prisma::{post, user, PrismaClient};
 
 // Note: ideally, I would not need this file at all. I would just use the generated
 // struct definitions from the prisma client, however with async-graphql I need
@@ -31,25 +31,33 @@ impl Into<User> for &user::Data {
 }
 
 #[derive(SimpleObject)]
+#[graphql(complex)]
 pub struct Post {
     pub id: String,
     pub content: String,
-    pub user: Option<Box<User>>,
     pub user_id: String,
+}
+
+#[ComplexObject]
+impl Post {
+    pub async fn user(&self, ctx: &Context<'_>) -> Result<Option<Box<User>>> {
+        let db = ctx.data::<PrismaClient>().unwrap();
+
+        Ok(db
+            .user()
+            .find_unique(user::id::equals(self.user_id.clone()))
+            .exec()
+            .await?
+            .map(|u| Box::new(u.into())))
+    }
 }
 
 impl Into<Post> for post::Data {
     fn into(self) -> Post {
-        let u: Option<Box<User>> = match self.user() {
-            Ok(u) => Some(Box::new(u.into())),
-            _ => None,
-        };
-
         Post {
             id: self.id,
             content: self.content,
             user_id: self.user_id,
-            user: u,
         }
     }
 }
