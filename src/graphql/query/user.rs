@@ -1,4 +1,4 @@
-use async_graphql::{ComplexObject, Context, Object, Result};
+use async_graphql::{Context, Object, Result};
 
 use crate::{
     graphql::types::User,

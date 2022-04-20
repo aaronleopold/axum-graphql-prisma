@@ -17,8 +17,18 @@ Then you can run the `cargo-watch -x run` command to watch for changes and autom
 To set up prisma, run:
 
 ```bash
-cargo prisma generate
-cargo prisma db push
+cargo prisma generate # outputs client to src/prisma.rs
+cargo prisma db push # outputs sqlite db to prisma/dev.db (specified in schema.prisma)
+```
+
+For more in-depth information about the prisma client, see the [Prisma Client Rust Docs](https://github.com/Brendonovich/prisma-client-rust/tree/main/docs).
+
+## Run the Server
+
+To run the server, run:
+
+```bash
+cargo run # or cargo-watch -x run
 ```
 
 ## GraphQL Playground

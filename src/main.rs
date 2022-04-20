@@ -24,6 +24,9 @@ async fn graphql_playground() -> impl IntoResponse {
     )))
 }
 
+// Note: This template uses Axum, but the bulk of the setup is for async_graphql. You should be able
+// to easily swap out Axum for your preferred framework (e.g. Rocket, actix, etc).
+
 #[tokio::main]
 async fn main() {
     #[cfg(debug_assertions)]
@@ -32,6 +35,8 @@ async fn main() {
     let schema = build_schema().await;
 
     let app = Router::new()
+        // I prefer to prefix my graphql endpoint with /api, but use whatever you like.
+        // just make sure it matches the path in graphql_playground()
         .route(
             "/api/graphql",
             get(graphql_playground).post(graphql_handler),
