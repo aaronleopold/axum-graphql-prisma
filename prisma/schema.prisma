@@ -17,6 +17,6 @@ model User {
 model Post {
   id      String @id @default(uuid())
   content String
-  user    User   @relation(fields: [userId], references: [id])
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  String
 }

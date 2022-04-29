@@ -19,6 +19,7 @@ To set up prisma, run:
 ```bash
 cargo prisma generate # outputs client to src/prisma.rs
 cargo prisma db push # outputs sqlite db to prisma/dev.db (specified in schema.prisma)
+cargo seed # seeds the database with some data (unimplemented, create a seed based on your needs)
 ```
 
 For more in-depth information about the prisma client, see the [Prisma Client Rust Docs](https://github.com/Brendonovich/prisma-client-rust/tree/main/docs).
@@ -78,3 +79,9 @@ query {
   }
 }
 ```
+
+## Notes
+
+This template uses Axum, but the bulk of the setup is for async_graphql + prisma. You should be able to easily swap out Axum for your preferred framework (e.g. Rocket, actix, etc).
+
+The simple use of async_graphql means that queries are done in a less efficient manner than could be, since fetching relations using `with` is never utilized and relations are loaded separately. Additionally, dataloader is not utilized because I can't be bothered.
