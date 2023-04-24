@@ -2,7 +2,7 @@ use async_graphql::{Context, InputObject, Object, Result};
 
 use crate::{
     graphql::types::Post,
-    prisma::{post, user, PrismaClient},
+    prisma::{user, PrismaClient},
 };
 
 // I normally separate the input types into separate files/modules, but this is just
@@ -25,11 +25,7 @@ impl PostMutation {
 
         let created = db
             .post()
-            .create(
-                post::content::set(input.content),
-                post::user::link(user::id::equals(input.user_id)),
-                vec![],
-            )
+            .create(input.content, user::id::equals(input.user_id), vec![])
             .exec()
             .await?;
 

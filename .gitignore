@@ -1,4 +1,4 @@
 /target
-*.db
+*.db*
 *.sqlite*
 src/prisma.rs

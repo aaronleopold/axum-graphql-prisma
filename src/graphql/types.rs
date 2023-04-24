@@ -29,20 +29,20 @@ impl User {
     }
 }
 
-impl Into<User> for user::Data {
-    fn into(self) -> User {
+impl From<user::Data> for User {
+    fn from(data: user::Data) -> User {
         User {
-            id: self.id,
-            display_name: self.display_name,
+            id: data.id,
+            display_name: data.display_name,
         }
     }
 }
 
-impl Into<User> for &user::Data {
-    fn into(self) -> User {
+impl From<&user::Data> for User {
+    fn from(data: &user::Data) -> User {
         User {
-            id: self.id.clone(),
-            display_name: self.display_name.clone(),
+            id: data.id.clone(),
+            display_name: data.display_name.clone(),
         }
     }
 }
@@ -69,12 +69,12 @@ impl Post {
     }
 }
 
-impl Into<Post> for post::Data {
-    fn into(self) -> Post {
+impl From<post::Data> for Post {
+    fn from(data: post::Data) -> Post {
         Post {
-            id: self.id,
-            content: self.content,
-            user_id: self.user_id,
+            id: data.id,
+            content: data.content,
+            user_id: data.user_id,
         }
     }
 }

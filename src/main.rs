@@ -11,8 +11,10 @@ use graphql::schema::{build_schema, AppSchema};
 #[cfg(debug_assertions)]
 use dotenv::dotenv;
 
-pub mod graphql;
-pub mod prisma;
+mod graphql;
+// NOTE: see https://github.com/Brendonovich/prisma-client-rust/releases/tag/0.6.8
+#[allow(warnings, unused)]
+mod prisma;
 
 async fn graphql_handler(schema: Extension<AppSchema>, req: GraphQLRequest) -> GraphQLResponse {
     schema.execute(req.into_inner()).await.into()
